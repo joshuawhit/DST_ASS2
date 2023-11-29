@@ -1,0 +1,10 @@
+My contributions:
+
+Some exploratory data analysis.
+The creation of a vocabulary, one hot encoding and bag of words embeddings.
+Bag of Words model testing and research into possible causes for the results.
+Implementation fo TF-IDF and fitting a logistic regression model to the TF-IDF embeddings.
+Word2Vec implementation for words, terms and documents and use logistic regression to tedt performance.
+Show how to performance of Word2Vec grows with input data size.
+Implement a pretrained tranformer and finetune it to the problem.
+Discuss possible ways to improve runtimes via parallelism.
