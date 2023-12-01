@@ -1,16 +1,60 @@
 Reflection:
 
-In this project we explore the LLM - Detect AI Generated Text dataset [1] which contained long essay texts with an associated key for AI generated or humanly generated. We introduce a variety of embeddings and models for this binary classification task. We start with the simplest, worst performing and most expensive embedding technique bag-of-words (BoW) and move to models with increasing complexity and efficiency and compare performance. I am responsible for a large amount of the coding completed, having written code for BoW, TF-IDF, Word2Vec and transformers. I also am responsible for the exploration of parallelization techniques. I successfully implementing a singly GPU optimization which retains model performance and reduces runtime by approximately 50%. I then go on the discuss two methods for how workloads can be split across multiple GPU/TPU’s, data and model parallelism. 
+In this project we explore the LLM - Detect AI Generated Text dataset [1] which contained long essay texts
+with an associated key for AI generated or humanly generated. We introduce a variety of embeddings and models
+for this binary classification task. We start with the simplest, worst performing and most expensive
+embedding technique bag-of-words (BoW) and move to models with increasing complexity and efficiency and
+compare performance. I am responsible for a large amount of the coding completed, having written code for
+BoW, TF-IDF, Word2Vec and transformers. I also am responsible for the exploration of parallelization
+techniques. I successfully implementing a singly GPU optimization which retains model performance and reduces
+runtime by approximately 50%. I then go on the discuss two methods for how workloads can be split across
+multiple GPU/TPU’s, data and model parallelism.
 
-Throughout the report, I make hypotheses for model performance results and perform tests to assess their validity. I make use of a small set of out-of-dataset examples to highlight when results seem dubious in nature. I am still unsure as to the true reason for why the very simple models perform so well on the test set. However, we also show how these models scale terribly with dataset/vocabulary size and so they should not be used in general. I report balanced accuracy as my main score statistic as I believe the associated cost for a false positive and a false negative are equal.
 
-I explore the Hugging face transformer implementation inside this report. Whilst deciding on a possible pretrained model to start with, I became aware of just how important this decision is. At first, I naively implement a random pretrained model and was disappointed to see the model would only ever report a given text as AI. This was because the model was originally trained on data which had no reference to whether it was AI or Humanly generated. I then decided to explore the list of HuggingFace pretrained models (see [2]). This is where I stumble upon the Hello-SimpleAI pretrained model, which is trained on the specific task at hand (and others we do not need). The use of this model was able to give results which seemed more truthful, and from the use of the out-of-dataset examples, we were able to show appears to be able to generalize.
+Throughout the report, I make hypotheses for model performance results and perform tests to assess their
+validity. I make use of a small set of out-of-dataset examples to highlight when results seem dubious in 
+nature. I am still unsure as to the true reason for why the very simple models perform so well on the test
+set. However, we also show how these models scale terribly with dataset/vocabulary size and so they should 
+not be used in general. I report balanced accuracy as my main score statistic as I believe the associated
+cost for a false positive and a false negative are equal.
 
-Although google Colab does not allow for the use of multiple GPU’s, I also show how PyTorch can be used to implement multi-GPU techniques. I highlight how data parallelism would be the more attractive parallelization technique due to the size of the model being able to fit on a single GPU. The use of multiple GPU’s would be very effective for the given task. Currently the model takes ≈7mins 30 seconds to train on a small subset of the training data, only 500 datapoints. To train the model on the whole dataset (≈50x more data) in a reasonable time, the data should be split across GPU’s (nodes).
 
-An area which I would like to explore in further detail is how to decide hyper-parameters for single GPU parallelism. I show in the report by changing the optimizer and editing a few hyperparameters (somewhat ‘blind’) I was able to further improve training times and improve performance in unison. However, I am still somewhat unsure as to why one optimizer is better than the other for the given task. Through inspection of the validation loss at each epoch, I believe that the learning rate is too large as the model seems to ‘overshoot’ and overfit the model. I was not able to successfully implement a smaller learning rate and this should be explored.
+I explore the Hugging face transformer implementation inside this report. Whilst deciding on a possible 
+pretrained model to start with, I became aware of just how important this decision is. At first, I naively 
+implement a random pretrained model and was disappointed to see the model would only ever report a given text
+as AI. This was because the model was originally trained on data which had no reference to whether it was AI
+or Humanly generated. I then decided to explore the list of HuggingFace pretrained models (see [2]). This is
+where I stumble upon the Hello-SimpleAI pretrained model, which is trained on the specific task at hand (and
+others we do not need). The use of this model was able to give results which seemed more truthful, and from
+the use of the out-of-dataset examples, we were able to show appears to be able to generalize.
 
-To collate code as a group we decided to use colabs which has a push to github feature. Although I found this very easy to use, with cloud computing being particularly useful for the given task, I did find that we were limited in how we could use GitHub. We encountered problems with people having different versions of the same report, which needed to be amalgamated together. This process was time consuming and reduced the ability for us to comment/improve each other’s code. In the future I would like to explore other methods for collaborative coding. I also believe the project could have benefited from a stricter schedule in which we could combine and discuss work together more frequently. This would help to minimize the problem of not knowing what work had been completed by whom.
+
+Although google Colab does not allow for the use of multiple GPU’s, I also show how PyTorch can be used to
+implement multi-GPU techniques. I highlight how data parallelism would be the more attractive parallelization
+technique due to the size of the model being able to fit on a single GPU. The use of multiple GPU’s would be
+very effective for the given task. Currently the model takes ≈7mins 30 seconds to train on a small subset of
+the training data, only 500 datapoints. To train the model on the whole dataset (≈50x more data) in a 
+reasonable time, the data should be split across GPU’s (nodes).
+
+
+An area which I would like to explore in further detail is how to decide hyper-parameters for single GPU 
+parallelism. I show in the report by changing the optimizer and editing a few hyperparameters (somewhat
+‘blind’) I was able to further improve training times and improve performance in unison. However, I am still
+somewhat unsure as to why one optimizer is better than the other for the given task. Through inspection of
+the validation loss at each epoch, I believe that the learning rate is too large as the model seems to
+‘overshoot’ and overfit the model. I was not able to successfully implement a smaller learning rate and this
+should be explored.
+
+
+To collate code as a group we decided to use colabs which has a push to github feature. Although I found this
+very easy to use, with cloud computing being particularly useful for the given task, I did find that we were
+limited in how we could use GitHub. We encountered problems with people having different versions of the same
+report, which needed to be amalgamated together. This process was time consuming and reduced the ability for
+us to comment/improve each other’s code. In the future I would like to explore other methods for
+collaborative coding. I also believe the project could have benefited from a stricter schedule in which we
+could combine and discuss work together more frequently. This would help to minimize the problem of not
+knowing what work had been completed by whom.
+
 
 [1] https://www.kaggle.com/datasets/sunilthite/llm-detect-ai-generated-text-dataset
 [2] https://huggingface.co/transformers/v3.3.1/pretrained_models.html
