@@ -1,0 +1,43 @@
+Individual reflection
+
+The goal of our project is to implement binary classification of AI-generated text through algorithms. The dataset used is the LLM-Detect AI Generated Text dataset from kaggle.
+Specifically, my team members and I provided experiments using traditional methods such as xgboost and decision trees, as well as NLP methods such as BoW, TF-IDF, Word2Vec and 
+transformers. My part is to independently use the BERT algorithm for binary classification to achieve the purpose we need. In addition, I provide key mathematical explanations 
+for the algorithms to better study them. In essence, being able to correctly identify programs is as important as humans improving AI and making it more like humans. Its purpose 
+is to ensure that the consequences of these algorithms can be kept within control.
+
+The BERT algorithm I provided is based on the transformer architecture, which uses an attention mechanism. Specifically, for each word, the attention mechanism obtains a weight 
+by calculating the similarity with other words. This similarity is usually calculated using dot product, and then many such attention heads are set to obtain different weights
+(number of head denoted by h in the original paper and set to h=8), and the outputs are connected as the result. In BERT, first of all, more emphasis is placed on using the 
+encoder part of the architecture. Masked language model (MLM) and next sentence prediction (NSP) are mainly used in pre-training, and both use the bidirectional context strategy.
+Compared with the original transformer algorithm, it will be able to analyze the text more comprehensively. What is very obvious is that the consequence of doing so is that it 
+consumes more computing resources.
+
+Essentially, the product of the transformer architecture is an algorithm that consumes a lot of calculations for training to improve the accuracy of the model, including BERT, 
+GPT, etc., but this shortcoming is made up for by reliability. How to handle such a huge amount of calculations has become a very critical issue.It took me more than two hours
+ to train the BERT model (the record shows 7300 seconds), using colab's cloud computing acceleration. If using CPU, the prediction training time will be more than a week. Using
+ free cloud computing greatly reduces the configuration pressure of local devices. In fact, any office notebook can easily use these functions, which has great advantages in 
+teaching or small-scale computing projects.
+
+However, due to the strong demand for computing power, GPU acceleration methods such as this are required for almost any model training that requires a large amount of calculations,
+ whether online or locally. This led me to look at more "traditional" local GPU acceleration. My superficial knowledge of hardware tells me that the core of the RTX3060 in my 
+laptop has 3584 cuda cores, which exceeds the 2560 of the T4GPU on the colab server. Although the memory is not dominant, it is worth a try. However, when I actually tried it, 
+problems emerged one after another. When setting up the environment, there was a situation where the cuda tools version and the pytorch version could not correspond. The direct 
+result was that it could not detect the local GPU. Then there was the driver problem. Since the graphics card of my laptop was not a professional card designed to solve this kind
+ of problem, it took a lot of time to find a driver that could adapt to pytorch and an available driver. In addition, I also realized that professional GPUs have faster performance
+ optimization for model training. The end result was that I gave up on gpu acceleration on my own laptop.
+
+It will be challenging to increase the amount of data thousands of times in training the BERT model. On the one hand, a larger data set means more comprehensive data, which will 
+be of great help in improving the generalization ability of the model. The problem is how to deal with the additional computation. For the transformer architecture alone, reducing 
+the sequence length will have a huge effect, since its time complexity is the square of the sequence length. Reducing the sequence length will reduce the ability to understand text 
+with long dependencies, but it can greatly reduce the computational cost. However, it has a certain limit. If it is too low, information will be lost. On the other hand, improving 
+hardware capabilities can also reduce training time. Various cloud computing services are a good way to save hardware costs. Of course, improving computing power generally means 
+consuming economic costs.
+
+Regarding the use of this project in display, in addition to finding some smart guys who use AI to write homework, the bigger role is to improve the quality of text generation, 
+that is, use it for adversarial training. Apparently someone has already thought about things like adversarial generative networks.One model is used to generate text such as the 
+GPT model, and the other model is used to determine whether it was generated by a human. The feedback results are used to debug the model until it is completely indistinguishable
+ whether it was generated by a human. It is understood that this type of training method has produced significant progress, and continuing to promote its development may be the 
+key to breakthroughs in the field of artificial intelligence.
+
+In general, the research on the transformer architecture has greatly inspired me and gave me a new understanding of computing scale and natural language processing algorithms.
