@@ -13,14 +13,14 @@ We have an equal equity split between everyone.
 All report content is in the directory:
 
 * report/
-* 
+  
 The report takes the following structure:
 
-*01-report.ipynb
-*02-BERT_by_pytorch.ipynb
-*03-Investigating generalisation using tree methods.ipynb
-*04-Calibration of neural networks.ipynb
-*05-Hughs stuff
+* 01-report.ipynb
+* 02-BERT_by_pytorch.ipynb
+* 03-Investigating generalisation using tree methods.ipynb
+* 04-Calibration of neural networks.ipynb
+* 05-Hughs stuff
 
 ## Evidence
 
