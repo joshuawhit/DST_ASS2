@@ -20,7 +20,7 @@ The report takes the following structure:
 * 02-BERT_by_pytorch.ipynb
 * 03-Investigating generalisation using tree methods.ipynb
 * 04-Calibration of neural networks.ipynb
-* 05-MapReduce for summarisation in higher-volume environments.ipynb
+* 05-Distributed Data vs Distributed Computation Example.ipynb
 
 ## Evidence
 
